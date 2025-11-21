@@ -42,17 +42,16 @@ function gotResults(error,results){
           if(results[0].label=="Best"){
                document.getElementById("result_emoji").innerHTML="&#128077;";
           }
-          if(results[0].label=="Victory"){
-               document.getElementById("result_emoji").innerHTML="&#9996;";
+          if(results[0].label=="One"){
+               document.getElementById("result_emoji").innerHTML="&#9757;";
           }
-          if(results[0].label=="Hi-Fi"){
-               document.getElementById("result_emoji").innerHTML="&#9994;";
+          if(results[0].label=="Hand Raise"){
+               document.getElementById("result_emoji").innerHTML="&#9995;";
           }
-          if(results[0].label=="Clap"){
-               document.getElementById("result_emoji").innerHTML="&#128079;";
           }
           if(results[0].label=="Swag"){
                document.getElementById("result_emoji").innerHTML="&#129304;";
           }
      }
+
 }
