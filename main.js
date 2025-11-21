@@ -48,10 +48,10 @@ function gotResults(error,results){
           if(results[0].label=="Hand Raise"){
                document.getElementById("result_emoji").innerHTML="&#9995;";
           }
-          }
           if(results[0].label=="Swag"){
                document.getElementById("result_emoji").innerHTML="&#129304;";
           }
      }
 
 }
+
