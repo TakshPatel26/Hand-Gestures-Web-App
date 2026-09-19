@@ -1,62 +1,74 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <title>Hand Gestures Web App</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/ml5@0.4.3/dist/ml5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.js"></script>
-   <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8" />
+    <title>Hand Gesture Web App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- MediaPipe Hands: detects 21 hand landmarks for high-accuracy gesture recognition -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.3/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4/hands.js" crossorigin="anonymous"></script>
   </head>
-<body>
-  <div class="container">
-  <center>
-      <h3 class="btn btn-info heading">Hand Gesture Web App
-        <br>
-        <span>&#128076;</span>
-        <span>&#128077;</span>
-        <span>&#9995;</span>
-        <span>&#129311;</span>
-      </h3>
-<br>
-<br>
-      <p style="font-size: 30px;">Take a selfie of a gesture to predict the gesture</p>
-		  <p style="font-size: 21px;"> Note: This model is trained in teachable machine and it is not 100% accurate</p>
-        <p style="font-size: 22px;">On the following gestures the model is trained - </p>
-      </p>
-     <div class="col-md-4 col-sm-12 col-xs-12">
-	      <label>Webcam View - </label>
-        <div id="camera"></div>
-        <br><br>
-        <button class="btn btn-primary" onclick="take_snapshot()">Capture Image</button>
-      </div>
-      <div class="col-md-4 col-sm-12 col-xs-12">
-        <span>&#128076;</span>
-        <span>&#128077;</span>
-        <span>&#9995;</span>
-        <span>&#129311;</span>
-        <br><br>
-	      <label>Prediction - </label>
-        <p class="gesture_name" id="result_gesture_name"></p>
-        <p class="emoji" id="result_emoji"></p> 
-      </div>
-     <div class="col-md-4 col-sm-12 col-xs-12">
-	      <label>Snapshot - </label>
-        <div id="result"></div>
-        <br><br>
-        <button class="btn btn-success" onclick="check()">Predict Gesture</button>
-      </div>
-</center>
-</div>
-<script src="main.js"></script>
- </body>
+  <body>
+    <div class="page">
+      <header class="header">
+        <h1>Hand Gesture Web App</h1>
+        <p class="subtitle">
+          Real-time gesture recognition powered by hand-landmark detection
+          <span class="badge">MediaPipe&nbsp;Hands · 21 keypoints</span>
+        </p>
+      </header>
 
+      <section class="legend">
+        <p class="legend-title">Recognized gestures</p>
+        <div class="legend-grid">
+          <div class="legend-item"><span class="emoji">&#128076;</span><span>Amazing (OK)</span></div>
+          <div class="legend-item"><span class="emoji">&#128077;</span><span>Best (Thumbs&nbsp;Up)</span></div>
+          <div class="legend-item"><span class="emoji">&#9995;</span><span>Hand Raise (Open&nbsp;Palm)</span></div>
+          <div class="legend-item"><span class="emoji">&#129304;</span><span>Swag (Rock / ILY)</span></div>
+          <div class="legend-item"><span class="emoji">&#9996;</span><span>Peace (Victory)</span></div>
+          <div class="legend-item"><span class="emoji">&#9994;</span><span>Fist</span></div>
+        </div>
+      </section>
+
+      <main class="stage">
+        <div class="video-wrap">
+          <video id="webcam" playsinline></video>
+          <canvas id="overlay"></canvas>
+          <div id="status" class="status">Loading model…</div>
+        </div>
+
+        <aside class="panel">
+          <p class="panel-label">Live Prediction</p>
+          <p class="emoji-big" id="result_emoji">&#129310;</p>
+          <p class="gesture-name" id="result_gesture_name">Show a gesture</p>
+
+          <div class="confidence">
+            <div class="confidence-bar"><span id="confidence_fill"></span></div>
+            <span class="confidence-text" id="confidence_text">0%</span>
+          </div>
+
+          <div class="controls">
+            <button class="btn btn-primary" id="startBtn" onclick="startCamera()">Start Camera</button>
+            <button class="btn btn-ghost" id="speakBtn" onclick="speak()">🔊 Speak</button>
+          </div>
+
+          <label class="toggle">
+            <input type="checkbox" id="autoSpeak" />
+            <span>Auto-announce new gestures</span>
+          </label>
+        </aside>
+      </main>
+
+      <footer class="footer">
+        No training data needed — the app reads your hand skeleton directly, so it works
+        across lighting, backgrounds, and skin tones.
+      </footer>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
 </html>
-
-
-
-
-
-
 
